@@ -1,63 +1,33 @@
-<<<<<<< HEAD
-const reveals = document.querySelectorAll(".reveal");
+// ===========================
+// MOBILE MENU
+// ===========================
 
-function reveal() {
-    const windowHeight = window.innerHeight;
+const menuToggle = document.getElementById("menuToggle");
+const nav = document.getElementById("nav");
 
-    reveals.forEach((section) => {
-        const top = section.getBoundingClientRect().top;
-
-        if (top < windowHeight - 120) {
-            section.classList.add("active");
-        }
+if (menuToggle) {
+    menuToggle.addEventListener("click", () => {
+        nav.classList.toggle("active");
     });
 }
 
-window.addEventListener("scroll", reveal);
-window.addEventListener("load", reveal);
+// ===========================
+// CLOSE MENU AFTER CLICK
+// ===========================
 
-const menuToggle = document.querySelector(".menu-toggle");
-const nav = document.querySelector("nav");
+document.querySelectorAll("nav a").forEach(link => {
 
-menuToggle.addEventListener("click", () => {
-    nav.classList.toggle("active");
+    link.addEventListener("click", () => {
+
+        nav.classList.remove("active");
+
+    });
+
 });
 
-ScrollReveal().reveal('.hero-content', {
-    distance: '60px',
-    duration: 1200,
-    origin: 'bottom',
-    reset: false
-});
-
-ScrollReveal().reveal('.about-image', {
-    delay: 200,
-    distance: '60px',
-    origin: 'left'
-});
-
-ScrollReveal().reveal('.about-text', {
-    delay: 300,
-    distance: '60px',
-    origin: 'right'
-});
-
-ScrollReveal().reveal('.service-card', {
-    interval: 150,
-    distance: '50px',
-    origin: 'bottom'
-});
-
-ScrollReveal().reveal('.portfolio-item', {
-    interval: 150,
-    distance: '50px',
-    origin: 'bottom'
-});
-
-ScrollReveal().reveal('.contact-container', {
-    distance: '60px',
-    origin: 'bottom'
-});
+// ===========================
+// SMOOTH ACTIVE NAV
+// ===========================
 
 const sections = document.querySelectorAll("section");
 const navLinks = document.querySelectorAll("nav a");
@@ -68,11 +38,12 @@ window.addEventListener("scroll", () => {
 
     sections.forEach(section => {
 
-        const sectionTop = section.offsetTop - 180;
-        const sectionHeight = section.clientHeight;
+        const sectionTop = section.offsetTop - 140;
 
-        if (pageYOffset >= sectionTop) {
+        if (window.scrollY >= sectionTop) {
+
             current = section.getAttribute("id");
+
         }
 
     });
@@ -82,30 +53,72 @@ window.addEventListener("scroll", () => {
         link.classList.remove("active");
 
         if (link.getAttribute("href") === "#" + current) {
+
             link.classList.add("active");
+
         }
 
     });
 
 });
 
-const topBtn = document.getElementById("topBtn");
+// ===========================
+// FADE IN ON SCROLL
+// ===========================
+
+const observer = new IntersectionObserver(entries => {
+
+    entries.forEach(entry => {
+
+        if (entry.isIntersecting) {
+
+            entry.target.classList.add("show");
+
+        }
+
+    });
+
+}, {
+
+    threshold:0.15
+
+});
+
+document.querySelectorAll("section").forEach(section => {
+
+    section.classList.add("hidden");
+
+    observer.observe(section);
+
+});
+
+// ===========================
+// BACK TO TOP BUTTON
+// ===========================
+
+const topButton = document.createElement("button");
+
+topButton.innerHTML = "↑";
+
+topButton.id = "topButton";
+
+document.body.appendChild(topButton);
 
 window.addEventListener("scroll", () => {
 
     if(window.scrollY > 500){
 
-        topBtn.style.display = "block";
+        topButton.classList.add("visible");
 
     }else{
 
-        topBtn.style.display = "none";
+        topButton.classList.remove("visible");
 
     }
 
 });
 
-topBtn.addEventListener("click", () => {
+topButton.addEventListener("click", () => {
 
     window.scrollTo({
 
@@ -115,122 +128,20 @@ topBtn.addEventListener("click", () => {
 
     });
 
-=======
-const reveals = document.querySelectorAll(".reveal");
-
-function reveal() {
-    const windowHeight = window.innerHeight;
-
-    reveals.forEach((section) => {
-        const top = section.getBoundingClientRect().top;
-
-        if (top < windowHeight - 120) {
-            section.classList.add("active");
-        }
-    });
-}
-
-window.addEventListener("scroll", reveal);
-window.addEventListener("load", reveal);
-
-const menuToggle = document.querySelector(".menu-toggle");
-const nav = document.querySelector("nav");
-
-menuToggle.addEventListener("click", () => {
-    nav.classList.toggle("active");
 });
 
-ScrollReveal().reveal('.hero-content', {
-    distance: '60px',
-    duration: 1200,
-    origin: 'bottom',
-    reset: false
-});
-
-ScrollReveal().reveal('.about-image', {
-    delay: 200,
-    distance: '60px',
-    origin: 'left'
-});
-
-ScrollReveal().reveal('.about-text', {
-    delay: 300,
-    distance: '60px',
-    origin: 'right'
-});
-
-ScrollReveal().reveal('.service-card', {
-    interval: 150,
-    distance: '50px',
-    origin: 'bottom'
-});
-
-ScrollReveal().reveal('.portfolio-item', {
-    interval: 150,
-    distance: '50px',
-    origin: 'bottom'
-});
-
-ScrollReveal().reveal('.contact-container', {
-    distance: '60px',
-    origin: 'bottom'
-});
-
-const sections = document.querySelectorAll("section");
-const navLinks = document.querySelectorAll("nav a");
+// ===========================
+// HERO FADE
+// ===========================
 
 window.addEventListener("scroll", () => {
 
-    let current = "";
+    const hero = document.querySelector(".hero");
 
-    sections.forEach(section => {
+    if(hero){
 
-        const sectionTop = section.offsetTop - 180;
-        const sectionHeight = section.clientHeight;
-
-        if (pageYOffset >= sectionTop) {
-            current = section.getAttribute("id");
-        }
-
-    });
-
-    navLinks.forEach(link => {
-
-        link.classList.remove("active");
-
-        if (link.getAttribute("href") === "#" + current) {
-            link.classList.add("active");
-        }
-
-    });
-
-});
-
-const topBtn = document.getElementById("topBtn");
-
-window.addEventListener("scroll", () => {
-
-    if(window.scrollY > 500){
-
-        topBtn.style.display = "block";
-
-    }else{
-
-        topBtn.style.display = "none";
+        hero.style.backgroundPositionY = `${window.scrollY * 0.35}px`;
 
     }
 
-});
-
-topBtn.addEventListener("click", () => {
-
-    window.scrollTo({
-
-        top:0,
-
-        behavior:"smooth"
-
-    });
-
->>>>>>> 56cbaba01ef0a5ac95659b0bd67e1904ab25605c
 });
