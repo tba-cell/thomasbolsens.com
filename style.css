@@ -92,6 +92,9 @@ section{
 
     padding:120px 0;
 
+    /* anchor links land below the fixed navbar */
+    scroll-margin-top:110px;
+
 }
 
 /* ==========================================
@@ -299,11 +302,29 @@ nav a:hover::after{
 
     display:none;
 
+    background:none;
+
+    border:none;
+
     font-size:28px;
 
     color:white;
 
     cursor:pointer;
+
+    padding:4px 8px;
+
+}
+
+nav a.active{
+
+    color:var(--gold);
+
+}
+
+nav a.active::after{
+
+    width:100%;
 
 }
 
@@ -450,7 +471,8 @@ nav a:hover::after{
 
     object-fit:cover;
 
-    object-position:center;
+    /* keep the face in view when the photo is cropped */
+    object-position:center 30%;
 
     border-radius:26px;
 
@@ -1010,9 +1032,76 @@ nav a:hover::after{
 
 @media(max-width:768px){
 
+    .nav-container{
+
+        padding:14px 22px;
+
+    }
+
     nav{
 
         display:none;
+
+        position:absolute;
+
+        top:calc(100% + 10px);
+        left:0;
+        right:0;
+
+        flex-direction:column;
+
+        gap:0;
+
+        padding:10px 0;
+
+        background:#0c0c0c;
+
+        border:1px solid var(--border);
+
+        border-radius:20px;
+
+        box-shadow:var(--shadow);
+
+    }
+
+    nav.active{
+
+        display:flex;
+
+    }
+
+    nav a{
+
+        width:100%;
+
+        padding:16px 28px;
+
+        font-size:18px;
+
+    }
+
+    nav a::after{
+
+        display:none;
+
+    }
+
+    /* touch screens can't hover: always show portfolio captions */
+    .portfolio-overlay{
+
+        opacity:1;
+
+    }
+
+    .form-row{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .contact-form{
+
+        padding:30px 22px;
 
     }
 
@@ -1102,6 +1191,301 @@ nav a:hover::after{
     .hero-buttons{
 
         flex-direction:column;
+
+    }
+
+}
+
+/* ==========================================
+   ACCESSIBILITY
+========================================== */
+
+.skip-link{
+
+    position:absolute;
+
+    left:16px;
+    top:-60px;
+
+    z-index:2000;
+
+    padding:12px 20px;
+
+    background:var(--gold);
+
+    color:#111;
+
+    border-radius:12px;
+
+    font-weight:700;
+
+}
+
+.skip-link:focus{
+
+    top:16px;
+
+}
+
+.sr-only{
+
+    position:absolute;
+
+    width:1px;
+    height:1px;
+
+    padding:0;
+    margin:-1px;
+
+    overflow:hidden;
+
+    clip:rect(0,0,0,0);
+
+    white-space:nowrap;
+
+    border:0;
+
+}
+
+a:focus-visible,
+button:focus-visible,
+.menu-toggle:focus-visible{
+
+    outline:2px solid var(--gold);
+
+    outline-offset:4px;
+
+}
+
+/* keyboard users also see portfolio captions */
+.portfolio-item:focus-within .portfolio-overlay{
+
+    opacity:1;
+
+}
+
+/* devices without hover (phones, tablets): always show captions */
+@media (hover:none){
+
+    .portfolio-overlay{
+
+        opacity:1;
+
+    }
+
+}
+
+/* ==========================================
+   CONTACT FORM EXTRAS
+========================================== */
+
+.contact-form select{
+
+    width:100%;
+
+    background:#101010;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    color:white;
+
+    padding:18px;
+
+    border-radius:14px;
+
+    margin-bottom:18px;
+
+    font-family:inherit;
+
+    font-size:16px;
+
+}
+
+.contact-form select:focus{
+
+    outline:none;
+
+    border-color:#D4AF37;
+
+}
+
+.contact-form input[type="date"]{
+
+    color-scheme:dark;
+
+}
+
+.form-row{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:0 18px;
+
+}
+
+.form-label{
+
+    display:block;
+
+    color:var(--grey);
+
+    font-size:14px;
+
+    margin:0 0 6px 4px;
+
+}
+
+.contact-form button:disabled{
+
+    opacity:.6;
+
+    cursor:wait;
+
+    transform:none;
+
+}
+
+.hp{
+
+    position:absolute;
+
+    left:-9999px;
+
+}
+
+.form-status{
+
+    margin-top:16px;
+
+    font-size:15px;
+
+    min-height:1em;
+
+}
+
+.form-status.success{
+
+    color:#8fd19e;
+
+}
+
+.form-status.error{
+
+    color:#ff8a80;
+
+}
+
+.form-status a{
+
+    text-decoration:underline;
+
+}
+
+.contact-item a:hover{
+
+    color:var(--gold);
+
+}
+
+/* ==========================================
+   SCROLL REVEAL
+========================================== */
+
+.reveal{
+
+    opacity:0;
+
+    transform:translateY(40px);
+
+    transition:opacity .8s ease, transform .8s ease;
+
+}
+
+.reveal.show{
+
+    opacity:1;
+
+    transform:none;
+
+}
+
+/* ==========================================
+   BACK TO TOP
+========================================== */
+
+#topButton{
+
+    position:fixed;
+
+    right:24px;
+    bottom:24px;
+
+    z-index:998;
+
+    width:52px;
+    height:52px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:var(--gold);
+
+    color:#111;
+
+    font-size:18px;
+
+    cursor:pointer;
+
+    box-shadow:var(--shadow);
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transform:translateY(12px);
+
+    transition:var(--transition);
+
+}
+
+#topButton.visible{
+
+    opacity:1;
+
+    visibility:visible;
+
+    transform:none;
+
+}
+
+#topButton:hover{
+
+    background:var(--gold-light);
+
+}
+
+/* ==========================================
+   REDUCED MOTION
+========================================== */
+
+@media (prefers-reduced-motion:reduce){
+
+    html{
+
+        scroll-behavior:auto;
+
+    }
+
+    *,
+    *::before,
+    *::after{
+
+        transition:none !important;
+
+        animation:none !important;
 
     }
 
