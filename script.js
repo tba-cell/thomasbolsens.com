@@ -34,12 +34,11 @@ if (menuToggle && nav) {
 }
 
 // ===========================
-// SCROLL EFFECTS (active nav, back-to-top, hero parallax)
+// SCROLL EFFECTS (active nav, back-to-top)
 // ===========================
 
 const sections = document.querySelectorAll("section[id]");
 const navLinks = document.querySelectorAll("nav a");
-const hero = document.querySelector(".hero");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const topButton = document.createElement("button");
@@ -69,11 +68,6 @@ function onScroll() {
 
     // Back-to-top button
     topButton.classList.toggle("visible", y > 500);
-
-    // Subtle hero parallax (desktop only, respects reduced motion)
-    if (hero && !reduceMotion && window.innerWidth > 768) {
-        hero.style.backgroundPosition = `center calc(50% + ${y * 0.35}px)`;
-    }
 
     ticking = false;
 }

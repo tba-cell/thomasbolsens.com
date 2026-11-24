@@ -353,7 +353,8 @@ nav a.active::after{
 
     background-size:cover;
 
-    background-position:center;
+    /* show the top of the photo so the face stays in view */
+    background-position:center top;
 
     background-repeat:no-repeat;
 
